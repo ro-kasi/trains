@@ -1,12 +1,17 @@
 <template>
   <div id="app">    
-    <svg width="500" height="500" class="base">
+    <svg width="500" height="500" class="base">      
+      <trainLine 
+        :start='stations[0]' 
+        :end='stations[11]' 
+        :radius="radius" 
+        :margin="margin" 
+        :offset="offset" />
       <station v-for="s in stations" 
         :x="s.x" :y="s.y" :visible='s.visible'
         :radius="radius" 
         :margin="margin" 
         :offset="offset" />
-        
     </svg>
     <br />
 
@@ -28,9 +33,10 @@
 
 <script>
   import station from './components/Station.vue'
+  import trainLine from './components/TrainLine.vue'
   export default {
     name: 'app',
-    components: {station},
+    components: {station, trainLine},
     data () {
       return {
         margin: 5,
@@ -51,10 +57,6 @@
           }
           this.stations.push(sta)
         }
-      }
-      for (var st of this.stations) {
-        st.px = (this.radius + this.offset * st.x) + this.margin
-        st.py = (this.radius + this.offset * st.y) + this.margin
       }
     }
   }
