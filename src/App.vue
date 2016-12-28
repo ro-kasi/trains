@@ -1,7 +1,12 @@
 <template>
   <div id="app">    
     <svg width="500" height="500" class="base">
-      <station v-for="s in stations" :x="s.x" :y="s.y" :radius="radius" :margin="margin" :offset="offset"></station>      
+      <station v-for="s in stations" 
+        :x="s.x" :y="s.y" :visible='s.visible'
+        :radius="radius" 
+        :margin="margin" 
+        :offset="offset" />
+        
     </svg>
     <br />
 

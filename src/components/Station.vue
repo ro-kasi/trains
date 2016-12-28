@@ -1,5 +1,5 @@
 <template>
-  <g v-bind:transform="'translate(' + px + ',' + py + ')'">
+  <g v-bind:transform="'translate(' + px + ',' + py + ')'" :visibility='show' @click='toggle'>
     <circle v-bind:r="radius" class="station"/>
     <text v-bind:x="radius" v-bind:y="-1 * radius">( {{x}}, {{y}})</text>
   </g>
@@ -28,21 +28,28 @@
       margin: {
         type: Number,
         required: true
+      },
+      visible: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {
       px: function () {
-        console.log('px change')
         return (this.radius + this.offset * this.x) + this.margin
       },
       py: function () {
         return (this.radius + this.offset * this.y) + this.margin
+      },
+      show: function () {
+        return this.visible ? 'yes' : 'hidden'
       }
     },
-    created () {
-      console.log('hi')
+    methods: {
+      toggle: function () {
+        this.visible = !this.visible
+      }
     }
-
   }
 </script>
 
