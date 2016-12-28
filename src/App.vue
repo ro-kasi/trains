@@ -7,12 +7,13 @@
         :radius="radius" 
         :margin="margin" 
         :offset="offset" />
-      
+      <line :x1='lineX1' :y1='lineY1' :x2='lineX2' :y2='lineY2'></line>
       <station v-for="s in stations" 
         :x="s.x" :y="s.y" :visible='s.visible'
         :radius="radius" 
         :margin="margin" 
-        :offset="offset" />
+        :offset="offset" 
+        v-on:station_click="station_click($event)"/>
     </svg>
     <br />
 
@@ -47,7 +48,11 @@
         links: [
           [0, 11],
           [11, 3]
-        ]
+        ],
+        lineX1: null,
+        lineY1: null,
+        lineX2: null,
+        lineY2: null
       }
     },
     created () {
@@ -62,6 +67,11 @@
           }
           this.stations.push(sta)
         }
+      }
+    },
+    methods: {
+      station_click: function (event) {
+        console.log('station_click rcv', event.clientX)
       }
     }
   }

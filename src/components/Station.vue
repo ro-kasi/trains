@@ -1,5 +1,5 @@
 <template>
-  <g v-bind:transform="'translate(' + px + ',' + py + ')'" :visibility='show' @click='toggle'>
+  <g v-bind:transform="'translate(' + px + ',' + py + ')'"  v-on:click="stationClick($event)">
     <circle v-bind:r="radius" class="station"/>
     <text v-bind:x="radius" v-bind:y="-1 * radius">( {{x}}, {{y}})</text>
   </g>
@@ -48,6 +48,10 @@
     methods: {
       toggle: function () {
         this.visible = !this.visible
+      },
+      stationClick: function (event) {
+        console.log('station-click emited')
+        this.$emit('station_click', event)
       }
     }
   }
