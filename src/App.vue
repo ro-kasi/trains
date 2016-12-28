@@ -1,12 +1,13 @@
 <template>
   <div id="app">    
     <svg width="500" height="500" class="base">      
-      <trainLine 
-        :start='stations[0]' 
-        :end='stations[11]' 
+      <trainLine v-for="l in links"
+        :start='stations[l[0]]' 
+        :end='stations[l[1]]' 
         :radius="radius" 
         :margin="margin" 
         :offset="offset" />
+      
       <station v-for="s in stations" 
         :x="s.x" :y="s.y" :visible='s.visible'
         :radius="radius" 
@@ -42,7 +43,11 @@
         margin: 5,
         radius: 10,
         offset: 50,
-        stations: []
+        stations: [],
+        links: [
+          [0, 11],
+          [11, 3]
+        ]
       }
     },
     created () {
