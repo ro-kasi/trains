@@ -24,14 +24,14 @@ class EventGenerator {
   }
 
   start () {
-    this.timer = window.setInterval(this.run, 5000)
+    this.timer = window.setInterval(this.run, 500)
   }
 
   run () {
     var min = 0
     var max = 9
     var action = Math.random() * (max - min) + min
-    action = 1
+    // action = 1
     var cord = {
       'x': rnd(0, 5),
       'y': rnd(0, 5)

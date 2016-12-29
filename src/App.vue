@@ -122,7 +122,7 @@
       visibleStations: function () {
         var vst = []
         for (var st of this.stations) {
-          if (vst.visible) {
+          if (st.visible) {
             vst.push(st)
           }
         }
