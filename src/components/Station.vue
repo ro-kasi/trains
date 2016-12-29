@@ -3,7 +3,9 @@
     <circle v-bind:r="radius" class="station"/>
     <text v-bind:x="radius" v-bind:y="1 * radius">({{x}}, {{y}})</text>
     <text v-bind:x="radius" v-bind:y="-1 * radius">
-      <tspan v-for="(count, group) in pas"> {{group}} x{{count}},</tspan>
+      <tspan v-for="(count, group) in pas" v-bind:style="{fill: group}" class="passenger_label"> 
+        {{count}},
+      </tspan>
     </text>
   </g>
 </template>
@@ -64,7 +66,10 @@
   }
 </script>
 
-<style type="text/css">  
+<style type="text/css">
+  .passenger_label {
+    font-weight: bold;
+  }
   .station {
     fill: #d8d8d8;
     stroke: #000000;
