@@ -1,5 +1,5 @@
 <template>
-  <g v-bind:transform="'translate(' + px + ',' + py + ')'"  v-on:click="stationClick($event)">
+  <g v-bind:transform="'translate(' + px + ',' + py + ')'"  v-on:click="stationClick($event)" :visibility="show">
     <circle v-bind:r="radius" class="station"/>
     <text v-bind:x="radius" v-bind:y="-1 * radius">( {{x}}, {{y}})</text>
   </g>

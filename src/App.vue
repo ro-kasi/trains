@@ -58,7 +58,7 @@
       return {
         margin: 80,
         radius: 10,
-        offset: 50,
+        offset: 75,
         stations: [],
         selectedPoint: null,
         selectedPointsList: [],
@@ -73,7 +73,14 @@
             'y': j,
             'px': null,
             'py': null,
-            'visible': true
+            'visible': false
+          }
+
+          var max = 10
+          var min = 1
+          var rnd = Math.random() * (max - min) + min
+          if (rnd > 7) {
+            sta.visible = true
           }
           this.stations.push(sta)
         }
