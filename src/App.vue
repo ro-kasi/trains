@@ -5,13 +5,18 @@
         :shape="line"
         :radius="radius" 
         :margin="margin" 
-        :offset="offset" />
+        :offset="offset">
+      </trainLine>
       <station v-for="s in stations" 
-        :x="s.x" :y="s.y" :visible='s.visible'
+        :x="s.x" 
+        :y="s.y"
+        :visible="s.visible"
+        :pas="s.pas"
         :radius="radius" 
         :margin="margin" 
         :offset="offset" 
-        v-on:station_click="station_click($event)"/>
+        v-on:station_click="station_click($event)">
+      </station>
     </svg>
     <br />
     
@@ -73,7 +78,8 @@
             'y': j,
             'px': null,
             'py': null,
-            'visible': false
+            'visible': false,
+            'pas': {}
           }
 
           var max = 10
@@ -94,6 +100,20 @@
           if (st.x === cord.x && st.y === cord.y) {
             st.visible = true
             console.log('adding station')
+          }
+        }
+      })
+
+      window.bus.$on('add-passenger', function (pas) {
+        for (var st of vu.stations) {
+          if (st.x === pas.x && st.y === pas.y) {
+            if (st.pas.hasOwnProperty(pas.group)) {
+              console.log('property exisit, increment')
+              vu.$set(st.pas, pas.group, 1 + st.pas[pas.group])
+            } else {
+              console.log('property not exisit, create')
+              vu.$set(st.pas, pas.group, 1)
+            }
           }
         }
       })
