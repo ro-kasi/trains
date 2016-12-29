@@ -1,17 +1,19 @@
 <template>
-  <line :x1="x1" :y1="y1" :x2="x2" :y2="y2" class="trainLine"></line>
+  <g>
+    <line v-for="l in lines" 
+      :x1="l.x1" :y1="l.y1" 
+      :x2="l.x2" :y2="l.y2" 
+      class="trainLine" />
+    </line>
+  </g>
 </template>
 
 <script type="text/javascript">
   export default {
     name: 'line',
     props: {
-      start: {
-        type: Object,
-        required: true
-      },
-      end: {
-        type: Object,
+      shape: {
+        type: Array,
         required: true
       },
       radius: {
@@ -28,18 +30,26 @@
       }
     },
     computed: {
-      x1: function () {
-        return (this.radius + this.offset * this.start.x) + this.margin
-      },
-      y1: function () {
-        return (this.radius + this.offset * this.start.y) + this.margin
-      },
+      lines: function () {
+        var lines = []
+        for (var i = 0; i < (this.shape.length - 1); i++) {
+          var start = this.shape[i]
+          var end = this.shape[i + 1]
+          var temp = {
+            'x1': this.getPoint(start.x),
+            'y1': this.getPoint(start.y),
 
-      x2: function () {
-        return (this.radius + this.offset * this.end.x) + this.margin
-      },
-      y2: function () {
-        return (this.radius + this.offset * this.end.y) + this.margin
+            'x2': this.getPoint(end.x),
+            'y2': this.getPoint(end.y)
+          }
+          lines.push(temp)
+        }
+        return lines
+      }
+    },
+    methods: {
+      getPoint: function (i) {
+        return (this.radius + this.offset * i) + this.margin
       }
     }
   }
