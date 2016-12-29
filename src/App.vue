@@ -86,6 +86,30 @@
         }
       }
     },
+
+    mounted () {
+      var vu = this
+      window.bus.$on('add-station', function (cord) {
+        for (var st of vu.stations) {
+          if (st.x === cord.x && st.y === cord.y) {
+            st.visible = true
+            console.log('adding station')
+          }
+        }
+      })
+    },
+    computed: {
+      visibleStations: function () {
+        var vst = []
+        for (var st of this.stations) {
+          if (vst.visible) {
+            vst.push(st)
+          }
+        }
+        return vst
+      }
+    },
+
     methods: {
       station_click: function (event) {
         console.log('station_click rcv', event.clientX)

@@ -11,6 +11,10 @@ new Vue({
   components: { App }
 })
 
+function rnd (min, max) {
+  return Math.floor(Math.random() * (max - min) + min)
+}
+
 class EventGenerator {
   constructor (vueBus) {
     this.event_bus
@@ -18,7 +22,7 @@ class EventGenerator {
   }
 
   start () {
-    this.timer = window.setTimeout(this.run, 2000)
+    this.timer = window.setInterval(this.run, 5000)
   }
 
   run () {
@@ -27,13 +31,18 @@ class EventGenerator {
     var action = Math.random() * (max - min) + min
 
     if (action > 0 && action <= 7) {
-      console.log('adding passenger')
-      window.bus.$emit('add-passenger')
+      // console.log('adding passenger')
+      // window.bus.$emit('add-passenger')
     } else {
-      console.log('adding new stop')
+      var cord = {
+        'x': rnd(0, 5),
+        'y': rnd(0, 5)
+      }
+      console.log('adding new stop', cord)
+      window.bus.$emit('add-station', cord)
     }
   }
 }
 
 var eventGen = new EventGenerator(window.bus)
-eventGen.run()
+eventGen.start()
